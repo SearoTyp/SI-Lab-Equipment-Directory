@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singh Imagineering Lab Equipment Directory</title>
+    <link rel="stylesheet" href="Style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="sidebar hidden" id="sidebar">
+        <div class="sidebar-header">
+            <button class="close-btn" onclick="toggleSidebar()">&#9776;</button>
+        </div>
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Get Involved..</div>
+                <hr class="light-line">
+                <ul>
+                    <li><a href="#competitions">Competitions</a></li>
+                    <li><a href="#workshops">Workshops</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">About Us..</div>
+                <hr class="light-line">
+                <ul>
+                    <li><a href="#inventory">Inventory</a></li>
+                    <li><a href="#labhours">Lab Hours</a></li>
+                    <li><a href="#contactus">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="main-content" id="mainContent">
+        <nav>
+            <div class="navbar">
+                <button class="menu-icon" onclick="toggleSidebar()">&#9776;</button>
+                <div class="center-title">Boston University College Of Engineering</div>
+                <div class="get-started">
+                    <hr class="vertical-line">
+                    <a href="#getstarted">Get Started</a>
+                </div>
+            </div>
+        </nav>
+        <section class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-text">
+                <h1>SILab Equipments Directory<span style="color: red;">.</span></h1>
+                <div class="search-container">
+                    <input type="text" placeholder="Quick-Search: Lab Equipment and Machines" class="search-bar" id="searchInput">
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+                <p class="intro-text">
+                    This site describes the shared tools and instruments available at SILab. Check out inventory sections to stay up to date with lab equipment, find out how to get started in the lab, or browse capabilities or questions via the menu.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="equipmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Demo Page</h2>
+            <p id="modalDescription">This is a demo page for the equipment.</p>
+            <a href="#" class="back-to-main" onclick="closeModal()">Back to main page</a>
+        </div>
+    </div>
+
+    <script>
+        const equipmentList = [
+            { name: "3D Printer", description: "Information about the 3D Printer." },
+            { name: "Laser Cutter and Engraver", description: "Details about the Laser Cutter and Engraver." },
+            { name: "CNC Mill", description: "Description of the CNC Mill." },
+            { name: "Soldering Station", description: "Specifications and usage of the Soldering Station." },
+            { name: "Oscilloscope", description: "Information on how to use the Oscilloscope." }
+            // Add more equipment as needed
+        ];
+
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle('hidden');
+        }
+
+        function renderEquipmentList(filteredEquipment) {
+            const resultsHtml = filteredEquipment.map(equipment => `<div class="search-result" onclick='openModal("${equipment.name}", "${equipment.description}")'>${equipment.name}</div>`).join('');
+            $('#searchResults').html(resultsHtml).show();
+        }
+
+        function openModal(name, description) {
+            $('#modalTitle').text(name);
+            $('#modalDescription').text(description);
+            $('#equipmentModal').show();
+        }
+
+        function closeModal() {
+            $('#equipmentModal').hide();
+        }
+
+        $(document).ready(function() {
+            renderEquipmentList(equipmentList);
+
+            $('#searchInput').on('input', function() {
+                const query = $(this).val().trim().toLowerCase();
+                const filteredEquipment = equipmentList.filter(equipment => equipment.name.toLowerCase().includes(query));
+                renderEquipmentList(filteredEquipment);
+            });
+
+            $(document).click(function(event) { 
+                if(!$(event.target).closest('.search-results, .search-bar').length) {
+                    if($('.search-results').is(":visible")) {
+                        $('.search-results').hide();
+                    }
+                }        
+            });
+
+            // Modal close button
+            $('.close').click(function() {
+                closeModal();
+            });
+        });
+    </script>
+</body>
+</html>
