@@ -51,7 +51,8 @@
                     <div id="searchResults" class="search-results"></div>
                 </div>
                 <p class="intro-text">
-                    This site describes the shared tools and instruments available at SILab. Check out inventory sections to stay up to date with lab equipment, find out how to get started in the lab, or browse capabilities or questions via the menu.
+                    This site describes the shared tools and instruments available at SILab. 
+                    Check out inventory sections to stay up to date with lab equipment, find out how to get started in the lab, or browse capabilities or questions via the menu.
                 </p>
             </div>
         </section>
@@ -104,6 +105,12 @@
                 const filteredEquipment = equipmentList.filter(equipment => equipment.name.toLowerCase().includes(query));
                 renderEquipmentList(filteredEquipment);
             });
+
+            $('#searchInput').focus(function() {
+             if ($(this).val().trim() !== "") {
+            $('#searchResults').show();
+            }
+             });
 
             $(document).click(function(event) { 
                 if(!$(event.target).closest('.search-results, .search-bar').length) {
