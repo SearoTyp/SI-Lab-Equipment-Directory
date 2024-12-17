@@ -152,13 +152,13 @@ body {
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 1.2em;
     margin-bottom: 20px;
 }
 
-/* Adjusted intro-text to be smaller and fit in two lines */
+
 .intro-text {
-    font-size: 0.52em;
+    font-size: 0.43em;
     color: white;
     z-index: 2;
     max-width: 100%;
@@ -193,15 +193,14 @@ h1 {
     overflow-y: auto;
 }
 
-/* Ensured search results text color is black */
+.search-bar:focus + .search-results {
+    display: block; 
+}
+
 .search-result {
     padding: 10px;
     cursor: pointer;
     color: black;
-}
-
-.search-bar:focus + .search-results {
-    display: block; /* Show when search bar is focused */
 }
 
 .search-result:hover {
@@ -211,24 +210,27 @@ h1 {
 body, html {
     height: 100%;
     margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 .hero {
-    position: relative;
-    height: calc(100vh - 70px);
+    position: fixed; /* Ensures the image takes the full screen */
+    top: 30;
+    left: 0;
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    background-image: url('IMG-0535.jpg'); /* Path to the image */
+    background-size: cover; /* Zooms and ensures full coverage */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeat */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('IMG-0535.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-top: 70px;
-    overflow: hidden;
+    text-align: center;
 }
 
-/* Removed blurriness */
 .hero-overlay {
     position: absolute;
     top: 0;
@@ -236,7 +238,7 @@ body, html {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.2);
-    /* backdrop-filter: blur(2px); Removed this line */
+    /* backdrop-filter: blur(2px); Reenable it if you want to blur the picture */
     z-index: 1;
 }
 
